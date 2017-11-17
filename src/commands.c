@@ -226,7 +226,7 @@ int evaluate_command(int n_commands, struct single_command (*commands)[512])
         int out = dup(1);
   if(n_commands==1){
       int i=0;  
-      bg_pid=0;
+      int bg_pid=0;
           if(strcmp((com+i)->argv[(com+i)->argc-1],"&")==0){
            (com+i)->argc--;
            (com+i)->argv[(com+i)->argc]=NULL;
@@ -263,12 +263,14 @@ int evaluate_command(int n_commands, struct single_command (*commands)[512])
         return 1;
     }else{
           
-           if(fork()==0){ 	
+           if((pid=fork())==0){ 	
            for(int j=0;j<6;j++){
            strcat(path[j], (com+i)-> argv[0]);
            execv(path[j], (com+i)->argv);
            }
-       } else if(bg_pid==0){wait(NULL);}
+           
+              
+       } else if(bg_pid==0){wait(NULL);} else {printf("%d\n", pid);}
     } 
   }else{
       for(int i=0;i<n_commands;i++){

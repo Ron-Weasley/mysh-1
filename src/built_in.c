@@ -36,7 +36,13 @@ int do_pwd(int argc, char** argv) {
 int do_fg(int argc, char** argv) {
   if (!validate_fg_argv(argc, argv))
     return -1;
-  waitpid(-1, NULL, WNOHANG);
+  int child_pid;
+  int stat_val;
+
+  child_pid = wait(&stat_val);
+
+ printf("%d done \n", child_pid);
+
   return 0;
 }
 
