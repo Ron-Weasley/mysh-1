@@ -272,13 +272,6 @@ int evaluate_command(int n_commands, struct single_command (*commands)[512])
     } 
   }else{
       for(int i=0;i<n_commands;i++){
-     if(n_commands==1){
-        bg_pid=0;
-          if(strcmp((com+i)->argv[(com+i)->argc-1],"&")==0){
-           (com+i)->argc--;
-           (com+i)->argv[(com+i)->argc]=NULL;
-           bg_pid=1;
-           }
       
     int built_in_pos = is_built_in_command((com+i)->argv[0]);
     int pid;
@@ -321,8 +314,7 @@ int evaluate_command(int n_commands, struct single_command (*commands)[512])
            }
        }
     exit(1);
-    }else if(pid!=-1) {if((i+1)!=n_commands) waitpid(pid,NULL,0);}
-              
+    }else if(pid!=-1) {if((i+1)!=n_commands) waitpid(pid,NULL,0); }          
              
           else  {printf("fork failed\n"); }
      }    
@@ -331,7 +323,7 @@ int evaluate_command(int n_commands, struct single_command (*commands)[512])
 
   }
           
-}
+
   
  
         
