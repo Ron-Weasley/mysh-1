@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <linux/limits.h>
+
 
 #include "built_in.h"
 
@@ -35,9 +36,7 @@ int do_pwd(int argc, char** argv) {
 int do_fg(int argc, char** argv) {
   if (!validate_fg_argv(argc, argv))
     return -1;
-
-  // TODO: Fill this.
-
+  waitpid(-1, NULL, WNOHANG);
   return 0;
 }
 
