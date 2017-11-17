@@ -3,7 +3,7 @@
 
 typedef int (*built_in_command_do)(int, char**);
 typedef int (*built_in_command_validate)(int, char**);
-int bg_pid;
+
 
 struct built_in_command
 {
